@@ -1,52 +1,42 @@
 ---
-bio: My research interests include distributed robotics, mobile computing and programmable
-  matter.
+bio:
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+  - course: MS Candidate in Urban Informatics
+    institution: Northeastern University
+    year: 2022
+  - course: BA in Economics/Administrative Studies
+    institution: University of California, Riverside
+    year: 2015
 email: ""
 highlight_name: true
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Geographic Information Systems
+- Forecasting
+- Economics
+- Evaluation
 organizations:
-- name: Stanford University
-  url: https://www.stanford.edu/
-role: Professor of Artificial Intelligence
+- name: Northeastern Univserity
+  url: https://www.northeastern.edu/
+role: Graduate Student
 social:
 - icon: envelope
   icon_pack: fas
   link: /#contact
 - display:
     header: true
-  icon: twitter
-  icon_pack: fab
-  label: Follow me on Twitter
-  link: https://twitter.com/GeorgeCushen
-- icon: graduation-cap
-  icon_pack: fas
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/GabrielV1091
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/
 superuser: true
-title: Alice Bighetti (吳恩達)
+title: Gabriel Villar
 ---
 
-Alice Bighetti is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Hello there! My name is Gabriel and I am currently pursing my Master's degree in Urban Informatics at Northeastern University. Prior to my graduate studies, I was a Data Quality Analyst, standardizing and synthesizing external real estate broker information to create industry metric reports. For my graduate studies and future career, I have taken an interest in GIS and Policy Evaluation. I have been a part of several individual and team related projects such as mapping historical landmarks lost to rising sea levels, youth development program evaluation, an exploratory proposal to ban single-family zoning in Greater Boston, a market analysis of Airbnb in Boston, and much more.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+I look forward to getting in contact with you! 
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/Gabriel Villar - Resumev2.pdf" "newtab" >}}resumé{{< /staticref >}}.
