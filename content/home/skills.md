@@ -24,10 +24,6 @@ feature:
   icon: chart-line
   icon_pack: fas
   name: Statistics
-- description: 10%
-  icon: piazza
-  icon_pack: ai
-  name: Piazza
 - description: 50%
   icon: code-branch
   icon_pack: fas
@@ -40,7 +36,7 @@ feature:
   icon: pen
   icon_pack: fas
   name: Evaluation
-- description: 70%
+- description: 75%
   icon: coins
   icon_pack: fas
   name: Economics
@@ -48,8 +44,19 @@ feature:
   icon: chart-pie
   icon_pack: fas
   name: Data Visualization
-
-
+- description: 50%
+  icon: list
+  icon_pack: fas
+  name: Alteryx
+- description: 50%
+  icon: dollar-sign
+  icon_pack: fas
+  name: Reinsurance 
+- description: 80%
+  icon: microsoft
+  icon_pack: fab
+  name: Microsoft Business Software
+  
 # Uncomment to use emoji icons.
 #- icon: ':smile:'
 #  icon_pack: emoji
