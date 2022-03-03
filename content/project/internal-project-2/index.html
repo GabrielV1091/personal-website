@@ -21,9 +21,9 @@ url_video: ""
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<p>The gaming industry has become a multi billion dollar industry and some of the largest developers boast a user base into the hundreds of millions of players. With this sheer amount of users, there will be lots of data that is readily available for analysts to determine various metrics such as time spent in game, retention, a cost analysis of a cosmetic product to other data points within a game itself like win ratio of a team, gold gained per hour, average deaths per minute, and many more. League of Legends is no different. With a player base in the hundreds of millions, the developers have a difficult job of trying to maintain their game in a state of balance that keeps the player base happy. To do this, they look at various metrics within millions of individual games in order to determine if anything is out of line.</p>
+<p>The gaming industry has become a multi-billion dollar industry and some of the largest developers boast a user base into the hundreds of millions of players. With this sheer amount of users, there will be lots of data that is readily available for analysts to determine various metrics such as time spent in game, retention, a cost analysis of a cosmetic product to other data points within a game itself like win ratio of a team, gold gained per hour, average deaths per minute, and many more. League of Legends is no different. With a player base in the hundreds of millions, the developers have a difficult job of trying to maintain their game in a state of balance that keeps the player base happy. To do this, they look at various metrics within millions of individual games in order to determine if anything is out of line.</p>
 <p>Each individual game played has a wide variety of data that is collected for these developers to use for whatever topic they may be looking into. Since this data is publicly available, we can actually use it to see if an algorithm can effectively predict the outcome of a game using the data that was obtained in the first 10 minutes of the match. Considering the average game length is somewhere around 25 minutes, this will be an interesting thought experiment to do since there are various other factors that are hidden from us that, as a game goes on longer, start to appear that do not originally show in the first few minutes of a match. The data I will be using to demonstrate one such algorithm is the first 10 minutes of Diamond Ranked games in the North American Server (Diamond is approximately equal to the top 2% of the entire competitive playerbase).</p>
-<p>The algorithm we will use in this post is a Neural Network. There are various other machine learning algorithms we can use, such as Naive Bayes or Decision Trees, but for the sake of brevity, we will only include one. The data I used has already been cleaned and parsed properly and only the steps to execute the Neural Network will be shown with the results.</p>
+<p>The algorithm we will use in this post is a Neural Network. There are various other machine learning algorithms we can use, such as Naive Bayes or Decision Trees, but for the sake of brevity, I will only include one. The data I used has already been cleaned and parsed properly and only the steps to execute the Neural Network will be shown with the results.</p>
 <pre class="r"><code>#create training and validation split 75/25
 smp_size &lt;- floor(0.75 * nrow(ranked.games.s))
 train_ind &lt;- sample(seq_len(nrow(ranked.games.s)), size = smp_size)
@@ -55,5 +55,90 @@ predicted.wins3 &lt;- model_results3$net.result
 predicted.wins5 &lt;- model_results5$net.result
 #display results
 confusionMatrix(as.factor(predicted.wins), as.factor(ranked.vali.n$blueWins))
+## Confusion Matrix and Statistics
+##
+## Reference
+## Prediction 0 1
+## 0 794 257
+## 1 304 721
+##
+## Accuracy : 0.7298
+## 95% CI : (0.7101, 0.7488)
+## No Information Rate : 0.5289
+## P-Value [Acc &gt; NIR] : &lt; 2e-16
+##
+## Kappa : 0.4591
+##
+## Mcnemar&#39;s Test P-Value : 0.05212
+##
+## Sensitivity : 0.7231
+## Specificity : 0.7372
+## Pos Pred Value : 0.7555
+## Neg Pred Value : 0.7034
+## Prevalence : 0.5289
+## Detection Rate : 0.3825
+## Detection Prevalence : 0.5063
+## Balanced Accuracy : 0.7302
+##
+## &#39;Positive&#39; Class : 0
+##
 confusionMatrix(as.factor(predicted.wins3), as.factor(ranked.vali.n$blueWins))
-confusionMatrix(as.factor(predicted.wins5), as.factor(ranked.vali.n$blueWins))</code></pre>
+
+## Confusion Matrix and Statistics
+##
+## Reference
+## Prediction 0 1
+## 0 780 268
+## 1 318 710
+##
+## Accuracy : 0.7177
+## 95% CI : (0.6978, 0.737)
+## No Information Rate : 0.5289
+## P-Value [Acc &gt; NIR] : &lt; 2e-16
+##
+## Kappa : 0.4351
+##
+## Mcnemar&#39;s Test P-Value : 0.04295
+##
+## Sensitivity : 0.7104
+## Specificity : 0.7260
+## Pos Pred Value : 0.7443
+## Neg Pred Value : 0.6907
+## Prevalence : 0.5289
+## Detection Rate : 0.3757
+## Detection Prevalence : 0.5048
+## Balanced Accuracy : 0.7182
+##
+## &#39;Positive&#39; Class : 0
+##
+
+confusionMatrix(as.factor(predicted.wins5), as.factor(ranked.vali.n$blueWins))
+
+## Confusion Matrix and Statistics
+##
+## Reference
+## Prediction 0 1
+## 0 779 276
+## 1 319 702
+##
+## Accuracy : 0.7134
+## 95% CI : (0.6934, 0.7328)
+## No Information Rate : 0.5289
+## P-Value [Acc &gt; NIR] : &lt;2e-16
+##
+## Kappa : 0.4262
+##
+## Mcnemar&#39;s Test P-Value : 0.0851
+##
+## Sensitivity : 0.7095
+## Specificity : 0.7178
+## Pos Pred Value : 0.7384
+## Neg Pred Value : 0.6876
+## Prevalence : 0.5289
+## Detection Rate : 0.3752
+## Detection Prevalence : 0.5082
+## Balanced Accuracy : 0.7136
+##
+## &#39;Positive&#39; Class : 0
+##</code></pre>
+<p>With a Neural Network being fed the first 10 minutes of game information, we can see that the accuracy of this model is approximately 71%, regardless of the number of nodes included in the neural network. While this is not a very high accuracy, this is still a respectable result given just how many conditionals beyond the first 10 minutes of a match occur. While this algorithm is just one of many, an ensemble of other algorithms can be constructed in order to gain an even more accurate model, as the ensemble would vote in favor of the majority of results from the various algorithms. This sole method should not be used to justify or be the primary means of game balance, but it is still a beneficial tool for developers to use to entertain various different metrics that can occur to see what aspect of the game could warrant attention or changes.</p>

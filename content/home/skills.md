@@ -16,46 +16,47 @@ subtitle:
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-- description: 100%
+- description: Advanced
   icon: r-project
   icon_pack: fab
   name: R
-- description: 100%
+- description: Advanced
   icon: chart-line
   icon_pack: fas
   name: Statistics
-- description: 50%
+- description: Intermediate
   icon: code-branch
   icon_pack: fas
   name: Machine Learning
-- description: 90%
+- description: Advanced
   icon: map-pin
   icon_pack: fas
   name: GIS
-- description: 80%
+- description: Intermediate
   icon: pen
   icon_pack: fas
   name: Evaluation
-- description: 75%
+- description: Intermediate
   icon: coins
   icon_pack: fas
   name: Economics
-- description: 70%
+- description: Intermediate
   icon: chart-pie
   icon_pack: fas
   name: Data Visualization
-- description: 50%
+- description: Advanced
   icon: list
   icon_pack: fas
   name: Alteryx
-- description: 50%
+- description: Intermediate
   icon: dollar-sign
   icon_pack: fas
   name: Reinsurance 
-- description: 80%
+- description: Advanced
   icon: microsoft
   icon_pack: fab
   name: Microsoft Business Software
+
   
 # Uncomment to use emoji icons.
 #- icon: ':smile:'
