@@ -1,0 +1,59 @@
+---
+date: "2021-12-14T00:00:00Z"
+external_link: ""
+image:
+  caption:
+  focal_point: Smart
+summary: Predicting the Result of a League of Legends Match
+tags:
+- League of Legends
+- Machine Learning
+- Statistics
+
+
+title: Machine Learning and League of Legends
+url_code: ""
+url_pdf: ""
+url_slides: ""
+url_video: ""
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The gaming industry has become a multi billion dollar industry and some of the largest developers boast a user base into the hundreds of millions of players. With this sheer amount of users, there will be lots of data that is readily available for analysts to determine various metrics such as time spent in game, retention, a cost analysis of a cosmetic product to other data points within a game itself like win ratio of a team, gold gained per hour, average deaths per minute, and many more. League of Legends is no different. With a player base in the hundreds of millions, the developers have a difficult job of trying to maintain their game in a state of balance that keeps the player base happy. To do this, they look at various metrics within millions of individual games in order to determine if anything is out of line.</p>
+<p>Each individual game played has a wide variety of data that is collected for these developers to use for whatever topic they may be looking into. Since this data is publicly available, we can actually use it to see if an algorithm can effectively predict the outcome of a game using the data that was obtained in the first 10 minutes of the match. Considering the average game length is somewhere around 25 minutes, this will be an interesting thought experiment to do since there are various other factors that are hidden from us that, as a game goes on longer, start to appear that do not originally show in the first few minutes of a match. The data I will be using to demonstrate one such algorithm is the first 10 minutes of Diamond Ranked games in the North American Server (Diamond is approximately equal to the top 2% of the entire competitive playerbase).</p>
+<p>The algorithm we will use in this post is a Neural Network. There are various other machine learning algorithms we can use, such as Naive Bayes or Decision Trees, but for the sake of brevity, we will only include one. The data I used has already been cleaned and parsed properly and only the steps to execute the Neural Network will be shown with the results.</p>
+<pre class="r"><code>#create training and validation split 75/25
+smp_size &lt;- floor(0.75 * nrow(ranked.games.s))
+train_ind &lt;- sample(seq_len(nrow(ranked.games.s)), size = smp_size)
+#append each dataframe by an antijoin
+ranked.train&lt;- ranked.games.s[train_ind, ]
+ranked.vali &lt;- ranked.games.s[-train_ind, ]
+#remove red team data to avoid redundancies and faster processing
+ranked.train &lt;- subset(ranked.train, select = -c(21:39))
+ranked.vali &lt;- subset(ranked.vali, select = -c(21:39))
+#convert all data to numeric variables
+set.seed(1337)
+ranked.train.n &lt;- data.frame(lapply(ranked.train, as.numeric))
+ranked.vali.n &lt;- data.frame(lapply(ranked.vali, as.numeric))
+ranked.net &lt;- neuralnet(blueWins ~ ., data = ranked.train.n, linear.output = F, stepmax = 1e7)
+#changing number of nodes to fine tune parameters
+ranked.net3 &lt;- neuralnet(blueWins ~ ., data = ranked.train.n, linear.output = F, hidden = 3, stepmax = 1e7)
+ranked.net5 &lt;- neuralnet(blueWins ~ ., data = ranked.train.n, linear.output = F, hidden = 5, stepmax = 1e7)
+#use compute to determine the number of neurons against the predicted result
+model_results &lt;- neuralnet::compute(ranked.net, ranked.vali.n[,-1])
+model_results3 &lt;- neuralnet::compute(ranked.net3, ranked.vali.n[,-1])
+model_results5 &lt;- neuralnet::compute(ranked.net5, ranked.vali.n[,-1])
+#convert probabilities from result into quantified results: 0 = good, 1 = bad
+model_results$net.result &lt;- ifelse(model_results$net.result &lt;= .5,0,1)
+model_results3$net.result &lt;- ifelse(model_results3$net.result &lt;= .5,0,1)
+model_results5$net.result &lt;- ifelse(model_results5$net.result &lt;= .5,0,1)
+#rename for clarity
+predicted.wins &lt;- model_results$net.result
+predicted.wins3 &lt;- model_results3$net.result
+predicted.wins5 &lt;- model_results5$net.result
+#display results
+confusionMatrix(as.factor(predicted.wins), as.factor(ranked.vali.n$blueWins))
+confusionMatrix(as.factor(predicted.wins3), as.factor(ranked.vali.n$blueWins))
+confusionMatrix(as.factor(predicted.wins5), as.factor(ranked.vali.n$blueWins))</code></pre>
