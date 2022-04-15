@@ -6,9 +6,9 @@ image:
   focal_point: Smart
 summary: Predicting the Result of a League of Legends Match
 tags:
-- League of Legends
+- R
 - Machine Learning
-- Statistics
+- Statistics 
 
 
 title: Machine Learning and League of Legends

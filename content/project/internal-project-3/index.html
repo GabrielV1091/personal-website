@@ -1,0 +1,86 @@
+---
+date: "2021-12-14T00:00:00Z"
+external_link: ""
+image:
+  caption:
+  focal_point: Smart
+summary: Proposals to implement and gain political traction for banning Single Family zoning
+tags:
+- Housing
+- R
+- GIS
+- Visualization
+
+title: Banning Single Family Zoning in Massachusetts 
+url_code: ""
+url_pdf: ""
+url_slides: ""
+url_video: ""
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The housing crisis has had long reaching effects on various housing markets all throughout the United States. Individual cities, such as Minieapolis, and states, like California, have taken measures to combat the housing crisis most of which comes in the form of restricting single family zoning in some form. From developing urban growth boundaries to restricting future developments, various measures are being used to combat the issue. Massachusetts has slowly begun to tackle the issue of the states housing crisis and many think tanks have begun to try and develop ways to implement such measures that would be accepted statewide. I was part of such a team to come up with ways to implement a ban on single family zoning that could be applied.</p>
+<p>One of the first steps in the process was to determine if building permit types did have an effect on the median price of a home. The logic is if there are more restrictions on developers, the cost of a home will increase to offset the difficulties. Taking various other metrics, I ran an ANOVA and regression analysis to confirm my teams suspicion.</p>
+<pre class="r"><code>#conduct ANOVA
+res &lt;- aov(Median_home_sale_price_2018 ~ Dummy_Multifam, data = MuniTotDemo)
+anova(res)
+
+Analysis of Variance Table
+
+Response: Median_home_sale_price_2018
+                Df     Sum Sq    Mean Sq F value  Pr(&gt;F)  
+Dummy_Multifam   1 2.0233e+11 2.0233e+11  4.6782 0.03219 *
+Residuals      145 6.2710e+12 4.3248e+10                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+#join multiple datasets together
+MuniTotDemo &lt;- merge(x = HousingIndicatorsMerged, y = MunicipalityArea, by = &quot;muni_id&quot;, all.x = TRUE)
+
+#create new object for analysis
+MuniTotDemo$Pop_per_smeter &lt;- (MuniTotDemo$sq.meter/MuniTotDemo$pop.x)
+#convert character variable to percentage
+MuniTotDemo$Percent_multifamily_2013.2017 &lt;- readr::parse_number(MuniTotDemo$Percent_multifamily_2013.2017)
+#build regression
+model &lt;- lm(Median_home_sale_price_2018 ~ Pop_per_smeter + tot_hu  + Dummy_Multifam + living_density + pop.x, data = MuniTotDemo)
+
+
+
+summary(model)
+print(model)
+
+Call:
+lm(formula = Median_home_sale_price_2018 ~ Pop_per_smeter + tot_hu + 
+    +Dummy_Multifam + living_density + pop.x, data = MuniTotDemo)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-416114 -117592  -53520   71222  724332 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    -4.248e+05  1.892e+05  -2.245  0.02632 *  
+Pop_per_smeter -1.238e+01  5.821e+00  -2.126  0.03523 *  
+tot_hu          3.656e+01  1.190e+01   3.071  0.00256 ** 
+Dummy_Multifam -6.778e+04  2.478e+04  -2.735  0.00705 ** 
+living_density  4.473e+05  8.165e+04   5.478 1.94e-07 ***
+pop.x          -1.740e+01  5.769e+00  -3.017  0.00303 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 191000 on 140 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.2056,    Adjusted R-squared:  0.1772 
+F-statistic: 7.245 on 5 and 140 DF,  p-value: 4.612e-06</code></pre>
+<p>The important step in this process prior to analysis was converting the permit type to a dummy variable. The two types of permits, By-Right or Special Permit, are the primary types we are looking to differentiate since the other two, NA and None, are not pervasive enough to include and were removed. Here I started with an ANOVA analysis to determine if there is a difference in the means of prices for each permit type. Since permit type is categorical, it is more conducive to an ANOVA analysis. The results does meet the 5% p-value threshold so we can conclude there is a difference between each permit type, which is what our group suspected. It is important to confirm this prior to further analysis since if each type was not different, our narrative and initial thought process would have to change.</p>
+<p>The next analysis was a multi-regression analysis using our developed dataset, which included various demographic data as well as constructed variables such as the “living_density” and “Pop_per_smeter” measure. Living density in this case is the average number of people per unit and Pop_per_smeter is short for Population per square meter. From the regression, we can see that while the overall model, while statistically significant, does not account for all the variation of housing prices, each measure can tell us an important factor in regards to housing prices. Most importantly, in relation to other variables, the permit type does play and have a powerful effect on the price of a home, relative to other variables in this simplified model. Determining the price of a home is far more complex than what this dataset would include, but the primary objective is to demonstrate the permit type relative to other metrics we are analyzing.</p>
+<p>The next step in the quantitative analysis is to show how smaller municipalities in Massachusetts are not developing new housing in ways that are condusive to denser development. Using publicly available data, I analyzed small cities in the state to show where their new developments are located relative to public transit.</p>
+<div class="figure">
+<img src="images/FraminghamBuildingPermits.png" alt="" />
+<p class="caption">Framingham New Residential Developments</p>
+</div>
+<p>This developed map shows where the new building developments, as of 2018, are shown relative to the public transit within the city. One of the key infrastructure requirements for denser housing is easy access to public transit. If there is more access, people will be able to forgo using their personal transit and use what is available. The reduced need for personal transit also reduces the number of personal parking spaces, which is also one of the most restrictive features in Special Permit requirements. The maps shows approximately half of the new developments are outside the half mile radius of public transit. The half mile radius is to match the requirements of MBTA Communities, in which multi-family housing is required within a half mile radius of public transit stops within the city of Boston. Should communities continue to develop sprawled housing, it not only increases personal costs and reduce housing supply, but it also increases the cost of the city since they need to provide the infrustructure for these homes to be far away, such as pipelines, fire protection, and roads.</p>
