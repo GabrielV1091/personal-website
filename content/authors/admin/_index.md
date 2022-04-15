@@ -35,7 +35,7 @@ superuser: true
 title: Gabriel Villar
 ---
 
-Hello there! My name is Gabriel and I am currently pursing my Master's degree in Urban Informatics at Northeastern University. Prior to my graduate studies, I was a Data Quality Analyst, standardizing and synthesizing external real estate broker information to create industry metric reports. For my graduate studies and future career, I have taken an interest in GIS and Policy Evaluation. I have been a part of several individual and team related projects such as mapping historical landmarks lost to rising sea levels, youth development program evaluation, an exploratory proposal to ban single-family zoning in Greater Boston, a market analysis of Airbnb in Boston, and much more.
+Hello there! My name is Gabriel and I have recently obtained my Master's degree in Urban Informatics from Northeastern University. Prior to my graduate studies, I was a Data Quality Analyst, standardizing and synthesizing external real estate broker information to create industry metric reports. For my graduate studies and future career, I have taken an interest in GIS, Statistics, and Policy Evaluation. I have been a part of several individual and team related projects such as mapping historical landmarks lost to rising sea levels, youth development program evaluation, an exploratory proposal to ban single-family zoning in Greater Boston, a market analysis of Airbnb in Boston, and much more.
 
 I look forward to getting in contact with you! 
 

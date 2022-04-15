@@ -44,7 +44,7 @@ feature:
   icon: chart-pie
   icon_pack: fas
   name: Data Visualization
-- description: Advanced
+- description: Intermediate
   icon: list
   icon_pack: fas
   name: Alteryx

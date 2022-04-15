@@ -31,6 +31,12 @@ content:
     tag: Covid
   - name: Machine Learning
     tag: Machine Learning
+  - name: R
+    tag: R
+  - name: Visualization
+    tag: Visualization
+  - name: GIS
+    tag: GIS
 
 design:
   # Choose how many columns the section has. Valid values: '1' or '2'.
