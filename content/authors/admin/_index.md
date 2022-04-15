@@ -2,7 +2,7 @@
 bio:
 education:
   courses:
-  - course: MS Candidate in Urban Informatics
+  - course: MS in Urban Informatics
     institution: Northeastern University
     year: 2022
   - course: BA in Economics/Administrative Studies
