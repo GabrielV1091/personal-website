@@ -26,7 +26,7 @@ experience:
   - title: Catastrophe Analyst
     company: Guy Carpenter
     company_url: 'https://www.guycarp.com/'
-    location: Philidelphia
+    location: Philadelphia
     date_start: '2021-06-01'
     date_end: '2021-12-31'
     description: |2-
