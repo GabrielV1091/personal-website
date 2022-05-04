@@ -2,7 +2,7 @@
 date: "2021-12-14T00:00:00Z"
 external_link: ""
 image:
-  caption:
+  caption: Blogdown Image
   focal_point: Smart
 summary: An overview of the market analysis of Airbnb in Boston during Covid-19
 tags:
