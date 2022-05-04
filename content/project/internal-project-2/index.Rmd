@@ -28,32 +28,40 @@ The algorithm we will use in this post is a Neural Network. There are various ot
 #create training and validation split 75/25
 smp_size <- floor(0.75 * nrow(ranked.games.s))
 train_ind <- sample(seq_len(nrow(ranked.games.s)), size = smp_size)
+
 #append each dataframe by an antijoin
 ranked.train<- ranked.games.s[train_ind, ]
 ranked.vali <- ranked.games.s[-train_ind, ]
+
 #remove red team data to avoid redundancies and faster processing
 ranked.train <- subset(ranked.train, select = -c(21:39))
 ranked.vali <- subset(ranked.vali, select = -c(21:39))
+
 #convert all data to numeric variables
 set.seed(1337)
 ranked.train.n <- data.frame(lapply(ranked.train, as.numeric))
 ranked.vali.n <- data.frame(lapply(ranked.vali, as.numeric))
 ranked.net <- neuralnet(blueWins ~ ., data = ranked.train.n, linear.output = F, stepmax = 1e7)
+
 #changing number of nodes to fine tune parameters
 ranked.net3 <- neuralnet(blueWins ~ ., data = ranked.train.n, linear.output = F, hidden = 3, stepmax = 1e7)
 ranked.net5 <- neuralnet(blueWins ~ ., data = ranked.train.n, linear.output = F, hidden = 5, stepmax = 1e7)
+
 #use compute to determine the number of neurons against the predicted result
 model_results <- neuralnet::compute(ranked.net, ranked.vali.n[,-1])
 model_results3 <- neuralnet::compute(ranked.net3, ranked.vali.n[,-1])
 model_results5 <- neuralnet::compute(ranked.net5, ranked.vali.n[,-1])
+
 #convert probabilities from result into quantified results: 0 = good, 1 = bad
 model_results$net.result <- ifelse(model_results$net.result <= .5,0,1)
 model_results3$net.result <- ifelse(model_results3$net.result <= .5,0,1)
 model_results5$net.result <- ifelse(model_results5$net.result <= .5,0,1)
+
 #rename for clarity
 predicted.wins <- model_results$net.result
 predicted.wins3 <- model_results3$net.result
 predicted.wins5 <- model_results5$net.result
+
 #display results
 confusionMatrix(as.factor(predicted.wins), as.factor(ranked.vali.n$blueWins))
 ## Confusion Matrix and Statistics
@@ -83,6 +91,7 @@ confusionMatrix(as.factor(predicted.wins), as.factor(ranked.vali.n$blueWins))
 ##
 ## 'Positive' Class : 0
 ##
+
 confusionMatrix(as.factor(predicted.wins3), as.factor(ranked.vali.n$blueWins))
 
 ## Confusion Matrix and Statistics
@@ -147,7 +156,7 @@ confusionMatrix(as.factor(predicted.wins5), as.factor(ranked.vali.n$blueWins))
 
 With a Neural Network being fed the first 10 minutes of game information, we can see that the accuracy of this model is approximately 71%, regardless of the number of nodes included in the neural network. While this is not a very high accuracy, this is still a respectable result given just how many conditionals beyond the first 10 minutes of a match occur. While this algorithm is just one of many, an ensemble of other algorithms can be constructed in order to gain an even more accurate model, as the ensemble would vote in favor of the majority of results from the various algorithms. This sole method should not be used to justify or be the primary means of game balance, but it is still a beneficial tool for developers to use to entertain various different metrics that can occur to see what aspect of the game could warrant attention or changes.  
 
-
+Data for this exercise taken from Kaggle 
 
 
 

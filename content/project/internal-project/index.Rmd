@@ -23,7 +23,7 @@ A pandemic on the scale of Covid-19 has done a lot to change our understanding o
 If we were to look at the median household income of 2019 in Boston, we would notice that not only is there an income inequality problem, the income is skewed towards the towards the peripherals of Boston. The peripheral neighborhoods, in this case, are Back Bay and Jamaica Plain whereas center 
 neighborhoods would be Roxbury and Mattapan. As such, different neighborhoods with different levels of Airbnb activity have greater potential lost revenue from the pandemic. 
 
-![Lost Revenue](images/AirbnbRev.jpg)
+![Data Source: Harvard Dataverse, AirBNB in Greater Boston](images/AirbnbRev.jpg)
 
 Here we can see the total potential loss by census tract. There are a couple of noteworthy details to point out. First, the vast majority of tracts fall into the lowest category. Based on the proximity to the downtown area, this is generally not surprising, as hosts will try to have listings 
 available to the city attractions as well as basing the prices of the cost of living in the area in order to maintain the property. Downtown, Back Bay, and Fenway generally are more expensive overall so hosts will adjust their pricing to match. An exception to this would be the neighborhood of 
